@@ -3,4 +3,7 @@
 
     <string name="current_location">Current Location</string>
     <string name="your_location">Your location: %s</string>
+
+    <string name="save_location">Save Location</string>
+    <string name="save_result">Save result: %s</string>
 </resources>
