@@ -77,8 +77,9 @@ public class PermissionUtil {
 
     private static void showReqReason(final PermissionReq req) {
         new AlertDialog.Builder(req.activity)
+                .setCancelable(false)
                 .setMessage(req.reqReason)
-                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         reqPermission(req);
@@ -94,18 +95,19 @@ public class PermissionUtil {
 
     private static void showRejectedMsg(final PermissionReq req) {
         new AlertDialog.Builder(req.activity)
+                .setCancelable(false)
                 .setMessage(req.rejectedMsg)
-                .setPositiveButton("change setting", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        openAppDetailSetting(req);
-                    }
-                })
-                .setNegativeButton("cancel", new DialogInterface.OnClickListener() {
+                .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         req.callback.onResult(false);
                         permissionReqList.remove(req);
+                    }
+                })
+                .setNegativeButton(R.string.change_setting, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        openAppDetailSetting(req);
                     }
                 })
                 .show();
@@ -119,6 +121,9 @@ public class PermissionUtil {
         req.activity.startActivityForResult(intent, req.reqCode);
     }
 
+    // Because this lib only supports request one permission at one time,
+    // so this method called 'onRequestPermissionResult',
+    // not 'onRequestPermissionsResult'
     public static void onRequestPermissionResult(Activity activity,
                                                  int requestCode,
                                                  String[] permissions,

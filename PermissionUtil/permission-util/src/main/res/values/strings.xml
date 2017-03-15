@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">PermissionUtil</string>
+    <string name="ok">OK</string>
+    <string name="change_setting">change setting</string>
 </resources>
