@@ -4,6 +4,7 @@ import android.Manifest;
 import android.app.Activity;
 
 import com.baurine.permissionutil.PermissionUtil;
+import com.baurine.permissionutilsample.R;
 
 /**
  * Created by baurine on 2/10/17.
@@ -19,8 +20,8 @@ public class CheckPermissionUtil {
         PermissionUtil.checkPermission(activity,
                 Manifest.permission.ACCESS_FINE_LOCATION,
                 LOCATION_PERMISSION_REQ_CODE,
-                "We need location permission to locate your position",
-                "We can't get your location without location permission",
+                activity.getText(R.string.location_req_reason),
+                activity.getText(R.string.location_reject_msg),
                 callback);
     }
 

@@ -46,6 +46,7 @@ public class LocationPresenter {
                 });
     }
 
+    @SuppressWarnings("MissingPermission")
     private void updateLocation() {
         String provider = LocationManager.NETWORK_PROVIDER;
         if (!locationManager.isProviderEnabled(provider)) {

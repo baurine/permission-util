@@ -27,15 +27,15 @@ public class PermissionUtil {
         final Activity activity;
         final String permission;
         final int reqCode;
-        final String reqReason;
-        final String rejectedMsg;
+        final CharSequence reqReason;
+        final CharSequence rejectedMsg;
         final ReqPermissionCallback callback;
 
         PermissionReq(Activity activity,
                       String permission,
                       int reqCode,
-                      String reqReason,
-                      String rejectedMsg,
+                      CharSequence reqReason,
+                      CharSequence rejectedMsg,
                       ReqPermissionCallback callback) {
             this.activity = activity;
             this.permission = permission;
@@ -56,12 +56,20 @@ public class PermissionUtil {
     public static void checkPermission(Activity activity,
                                        String permission,
                                        int reqCode,
-                                       String reqReason,
-                                       String rejectedMsg,
-                                       ReqPermissionCallback callback) {
+                                       CharSequence reqReason,
+                                       CharSequence rejectedMsg,
+                                       final ReqPermissionCallback callback) {
         if (hasPermission(activity, permission)) {
-            // here has a potential problem, mix the sync and async callback
-            callback.onResult(true);
+            // we shouldn't callback directly, it will mix the sync and async logic
+            // if you want to check permission sync, you should manually call hasPermission() method
+
+            // callback.onResult(true);
+            activity.getWindow().getDecorView().post(new Runnable() {
+                @Override
+                public void run() {
+                    callback.onResult(true);
+                }
+            });
         } else {
             boolean shouldShowReqReason = ActivityCompat
                     .shouldShowRequestPermissionRationale(activity, permission);

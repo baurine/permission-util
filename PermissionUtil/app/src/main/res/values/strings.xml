@@ -6,4 +6,9 @@
 
     <string name="save_location">Save Location</string>
     <string name="save_result">Save result: %s</string>
+
+    <string name="location_req_reason">We need
+        <b>location permission</b> to locate your position.</string>
+    <string name="location_reject_msg">We <b>can\'t</b> get your location <b>without location
+        permission</b>.</string>
 </resources>
